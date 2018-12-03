@@ -1,0 +1,13 @@
+<h1>Here is the list of cities:</h1>
+<p><a href='/cities'>Search specific city</a></p>
+
+
+<ol>
+@foreach (var city in @Model)
+{
+  <li>@city.GetCityName()</li>
+}
+</ol>
+
+
+<p><a href='/'>Return to Main Page</a></p>
