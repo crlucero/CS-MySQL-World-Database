@@ -48,7 +48,7 @@ namespace World.Models
         MySqlConnection conn = DB.Connection();
         conn.Open();
         MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
-        cmd.CommandText = @"SELECT * FROM city WHERE name LIKE '"+ searchCity +"';";
+        cmd.CommandText = @"SELECT * FROM city WHERE name LIKE '%"+ searchCity +"%';";
         MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
         while(rdr.Read())
         {
@@ -63,6 +63,30 @@ namespace World.Models
             conn.Dispose();
         }
         return newCity;
+        }
+
+        public static List<City> FindCity(string countryCode)
+        {
+            List<City> newCityList = new List<City> {};
+            MySqlConnection conn = DB.Connection();
+            conn.Open();
+            MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
+            cmd.CommandText = @"SELECT * FROM city WHERE CountryCode = '"+ countryCode +"';";
+            MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
+            while(rdr.Read())
+            {
+                // int cityId = rdr.GetInt32(0);
+                string cityName = rdr.GetString(1);
+                City clickedCity = new City(cityName);
+                newCityList.Add(clickedCity);
+            }
+            conn.Close();
+            if (conn != null)
+            {
+                conn.Dispose();
+            }
+            return newCityList;
+        
         }
     }
 

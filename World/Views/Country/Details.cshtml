@@ -1,0 +1,14 @@
+<h1>Here is a list of cities in this country:</h1>
+@foreach(var country in @Model["country"])
+{
+  <h2>The population of @country.GetCountryName() is @country.GetCountryPop()</h2>
+}
+<ol>
+@foreach (var city in @Model["cities"])
+{
+  <li>@city.GetCityName()</li>
+}
+</ol>
+
+<p><a href='/country/show'>Return to country database list</a></p>
+<p><a href='/'>Return to Main Page</a></p>
